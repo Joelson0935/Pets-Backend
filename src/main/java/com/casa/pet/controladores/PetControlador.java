@@ -41,7 +41,7 @@ public class PetControlador {
 	}
 
 	@GetMapping("/buscar-objeto-por-nome")
-	public ResponseEntity<List<Pet>> buscarPetPorNome(String nome) {
+	public ResponseEntity<List<Pet>> buscarPetPorNome(@RequestParam(name = "nome") String nome) {
 		return ResponseEntity.ok(petServico.buscarPetPorNome(nome));
 	}
 
