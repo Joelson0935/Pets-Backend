@@ -40,8 +40,8 @@ public class PetControlador {
 		return new ResponseEntity<Pet>(petServico.guardarEntidade(pet), HttpStatus.CREATED);
 	}
 
-	@GetMapping("/buscar-objeto-por-nome/{nome}")
-	public ResponseEntity<List<Pet>> buscarPetPorNome(@PathVariable String nome) {
+	@GetMapping("/buscar-objeto-por-nome")
+	public ResponseEntity<List<Pet>> buscarPetPorNome(@RequestParam(name = "nome") String nome) {
 		return ResponseEntity.ok(petServico.buscarPetPorNome(nome));
 	}
 

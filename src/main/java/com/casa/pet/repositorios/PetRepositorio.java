@@ -11,9 +11,9 @@ import com.casa.pet.modelos.Pet;
 @Repository
 public interface PetRepositorio extends JpaRepository<Pet, Integer> {
 
-	@Query("select p from Pet p where p.nome like %:nome%")
+	@Query("SELECT p FROM Pet p WHERE p.nome LIKE %?1%")
 	List<Pet> buscarPorNome(String nome);
-	
+
 	@Query("select count(p) from Pet p")
 	Integer buscarTotalDePets();
 }
