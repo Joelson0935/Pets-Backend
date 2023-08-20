@@ -1,9 +1,9 @@
 package com.casa.pet.excessoes;
 
-public class PetNaoEncontrado extends RuntimeException {
+public class ObjetoNaoEncontrado extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
-	public PetNaoEncontrado(String message) {
+	public ObjetoNaoEncontrado(String message) {
 		super(message);
 	}
 

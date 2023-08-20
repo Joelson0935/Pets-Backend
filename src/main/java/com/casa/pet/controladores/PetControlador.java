@@ -17,26 +17,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.casa.pet.modelos.Pet;
 import com.casa.pet.servicos.PetServico;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/pet")
-@CrossOrigin(origins = {"https://my-little-pet.netlify.app/", "http://127.0.0.1:5500/"})
+@CrossOrigin(origins = { "https://my-little-pet.netlify.app/", "http://127.0.0.1:5500/" })
 public class PetControlador {
 
 	@Autowired
 	private PetServico petServico;
 
-	@PostMapping("/guardar-imagem")
-	public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) {
-		return ResponseEntity.status(HttpStatus.OK).body(petServico.uploadImagem(file));
-	}
-
-	@PostMapping("/guardar-dados")
-	public ResponseEntity<Pet> guardarEntidade(@RequestBody Pet pet) {
+	@PostMapping("/guardar-objeto")
+	public ResponseEntity<Pet> guardarEntidade(@Valid @RequestBody Pet pet) {
 		return new ResponseEntity<Pet>(petServico.guardarEntidade(pet), HttpStatus.CREATED);
 	}
 
@@ -55,7 +51,7 @@ public class PetControlador {
 	public ResponseEntity<List<Pet>> buscarTodosOsPetsDoBanco() {
 		return ResponseEntity.status(HttpStatus.OK).body(petServico.buscarTodosPetsDoBanco());
 	}
-	
+
 	@GetMapping("/buscar-total-pets")
 	public ResponseEntity<Integer> buscarTotalDePets() {
 		return ResponseEntity.status(HttpStatus.OK).body(petServico.buscarTotalDePets());

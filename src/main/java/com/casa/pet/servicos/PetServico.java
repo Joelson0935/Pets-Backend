@@ -4,13 +4,10 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.casa.pet.modelos.Pet;
 
 public interface PetServico {
-
-	String uploadImagem(MultipartFile imagem);
 
 	Pet guardarEntidade(Pet pet);
 
@@ -21,6 +18,6 @@ public interface PetServico {
 	List<Pet> buscarTodosPetsDoBanco();
 
 	Pet buscarPetPorId(Integer id);
-	
+
 	Integer buscarTotalDePets();
 }

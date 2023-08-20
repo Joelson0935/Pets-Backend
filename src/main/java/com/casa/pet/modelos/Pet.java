@@ -5,13 +5,14 @@ import java.util.Objects;
 
 import com.casa.pet.modelos.enums.Sexo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Pet implements Serializable {
@@ -20,12 +21,16 @@ public class Pet implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Lob
+	@NotNull(message = "Foto é obrigatória")
 	private String foto;
+	@Column(length = 15)
 	private String nome;
+	@NotNull(message = "Gênero obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
+	@Column(length = 15)
 	private String cor;
+	@Column(length = 15)
 	private String raca;
 
 	public Pet() {

@@ -12,8 +12,8 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class ManipuladorDeExcecoes {
 
-	@ExceptionHandler(PetNaoEncontrado.class)
-	public ResponseEntity<Erro> naoEncontrado(PetNaoEncontrado e, HttpServletRequest request) {
+	@ExceptionHandler(ObjetoNaoEncontrado.class)
+	public ResponseEntity<Erro> naoEncontrado(ObjetoNaoEncontrado e, HttpServletRequest request) {
 		Erro erro = new Erro(e.getMessage(), HttpStatus.NOT_FOUND.value(), LocalDate.now(), request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
 	}
