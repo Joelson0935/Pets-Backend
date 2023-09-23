@@ -15,8 +15,7 @@
    http://localhost:8080/swagger-ui/index.html
 
 ## Mudando as configurações no application properties para o banco de dados local 
-![Application Properties](![application properties imagem](https://github.com/Joelson0935/Pets-Backend/assets/56981455/3c3aa216-28dc-45cd-909d-c8f74cec18bc)
- )
+![application properties imagem](https://github.com/Joelson0935/Pets-Backend/assets/56981455/3c3aa216-28dc-45cd-909d-c8f74cec18bc)
 
 ## Endpoints: 
 * Guardar Objeto:
