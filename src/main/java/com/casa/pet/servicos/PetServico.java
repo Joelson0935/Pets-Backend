@@ -5,19 +5,19 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.casa.pet.modelos.Pet;
+import com.casa.pet.modelos.dto.PetDTO;
 
 public interface PetServico {
 
-	Pet guardarEntidade(Pet pet);
+	PetDTO guardarEntidade(PetDTO pet);
 
-	List<Pet> buscarPetPorNome(String nome);
+	List<PetDTO> buscarPetPorNome(String nome);
 
-	Page<Pet> buscarListaDePets(Pageable pageable);
+	Page<PetDTO> buscarListaDePets(Pageable pageable);
 
-	List<Pet> buscarTodosPetsDoBanco();
+	List<PetDTO> buscarTodosPetsDoBanco();
 
-	Pet buscarPetPorId(Integer id);
+	PetDTO buscarPetPorId(Integer id);
 
 	Integer buscarTotalDePets();
 }

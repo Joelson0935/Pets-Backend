@@ -1,7 +1,9 @@
 package com.casa.pet.servicos.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.casa.pet.excessoes.ObjetoNaoEncontrado;
 import com.casa.pet.modelos.Pet;
+import com.casa.pet.modelos.dto.PetDTO;
 import com.casa.pet.repositorios.PetRepositorio;
 import com.casa.pet.servicos.PetServico;
 
@@ -21,36 +24,62 @@ public class PetServicoImpl implements PetServico {
 	private PetRepositorio petRepositorio;
 
 	@Override
-	public Pet guardarEntidade(Pet pet) {
-		return petRepositorio.save(pet);
+	public PetDTO guardarEntidade(PetDTO pet) {
+		Pet petEntidade = new Pet();
+		BeanUtils.copyProperties(pet, petEntidade);
+		petRepositorio.save(petEntidade);
+		return pet;
 	}
 
 	@Transactional
 	@Override
-	public List<Pet> buscarPetPorNome(String nome) {
-		return petRepositorio.buscarPorNome(nome);
+	public List<PetDTO> buscarPetPorNome(String nome) {
+		List<Pet> pets = petRepositorio.buscarPorNome(nome);
+		List<PetDTO> petsDTO = new ArrayList<>();
+		pets.forEach(pet -> {
+			PetDTO dto = new PetDTO();
+			BeanUtils.copyProperties(pet, dto);
+			petsDTO.add(dto);
+		});
+
+		return petsDTO;
 	}
 
 	@Override
-	public Page<Pet> buscarListaDePets(Pageable pageable) {
+	public Page<PetDTO> buscarListaDePets(Pageable pageable) {
 		Page<Pet> pets = petRepositorio.findAll(pageable);
-		return pets;
+		Page<PetDTO> petsDTO = pets.map(pet -> entidadeParaDto(pet));
+		return petsDTO;
 	}
 
 	@Override
-	public List<Pet> buscarTodosPetsDoBanco() {
-		return petRepositorio.findAll();
+	public List<PetDTO> buscarTodosPetsDoBanco() {
+		List<Pet> pets = petRepositorio.findAll();
+		List<PetDTO> petsDTO = new ArrayList<>();
+		pets.forEach(pet -> {
+			PetDTO dto = new PetDTO();
+			BeanUtils.copyProperties(pet, dto);
+			petsDTO.add(dto);
+		});
+		return petsDTO;
 	}
 
 	@Override
-	public Pet buscarPetPorId(Integer id) {
+	public PetDTO buscarPetPorId(Integer id) {
 		Pet pet = petRepositorio.findById(id).orElseThrow(() -> new ObjetoNaoEncontrado("Pet não encontrado " + id));
-		return pet;
+		PetDTO dto = new PetDTO();
+		BeanUtils.copyProperties(pet, dto);
+		return dto;
 	}
 
 	@Override
 	public Integer buscarTotalDePets() {
 		return petRepositorio.buscarTotalDePets();
+	}
+
+	private PetDTO entidadeParaDto(Pet pet) {
+		PetDTO dto = new PetDTO(pet.getId(), pet.getFoto(), pet.getNome(), pet.getSexo(), pet.getCor(), pet.getRaca());
+		return dto;
 	}
 
 }

@@ -1,43 +1,36 @@
-package com.casa.pet.modelos;
+package com.casa.pet.modelos.dto;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import com.casa.pet.modelos.enums.Sexo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
-@Entity
-public class Pet implements Serializable {
+public class PetDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(nullable = false)
+	@NotNull(message = "Foto é obrigatória")
 	private String foto;
-	@Column(length = 15)
+	@Size(min = 2, max = 15, message = "mínimo {min} e máximo {max} caracteres")
 	private String nome;
-	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
-	@Column(length = 15)
+	@Size(min = 2, max = 15, message = "mínimo {min} e máximo {max} caracteres")
 	private String cor;
-	@Column(length = 15)
+	@Size(min = 2, max = 15, message = "mínimo {min} e máximo {max} caracteres")
 	private String raca;
 
-	public Pet() {
+	public PetDTO() {
 		super();
 	}
 
-	public Pet(String foto, String nome, Sexo sexo, String cor, String raca) {
+	public PetDTO(Integer id, String foto, String nome, Sexo sexo, String cor, String raca) {
 		super();
+		this.id = id;
 		this.foto = foto;
 		this.nome = nome;
 		this.sexo = sexo;
@@ -91,23 +84,6 @@ public class Pet implements Serializable {
 
 	public void setRaca(String raca) {
 		this.raca = raca;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Pet other = (Pet) obj;
-		return Objects.equals(id, other.id);
 	}
 
 }

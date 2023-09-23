@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.casa.pet.modelos.Pet;
+import com.casa.pet.modelos.dto.PetDTO;
 import com.casa.pet.servicos.PetServico;
 
 import jakarta.validation.Valid;
@@ -32,23 +32,23 @@ public class PetControlador {
 	private PetServico petServico;
 
 	@PostMapping("/guardar-objeto")
-	public ResponseEntity<Pet> guardarEntidade(@Valid @RequestBody Pet pet) {
-		return new ResponseEntity<Pet>(petServico.guardarEntidade(pet), HttpStatus.CREATED);
+	public ResponseEntity<PetDTO> guardarEntidade(@Valid @RequestBody PetDTO pet) {
+		return new ResponseEntity<PetDTO>(petServico.guardarEntidade(pet), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/buscar-objeto-por-nome")
-	public ResponseEntity<List<Pet>> buscarPetPorNome(@RequestParam(name = "nome") String nome) {
+	public ResponseEntity<List<PetDTO>> buscarPetPorNome(@RequestParam(name = "nome") String nome) {
 		return ResponseEntity.ok(petServico.buscarPetPorNome(nome));
 	}
 
 	@GetMapping("/buscar-lista-paginada")
-	public ResponseEntity<Page<Pet>> buscarListaDePets(
+	public ResponseEntity<Page<PetDTO>> buscarListaDePets(
 			@PageableDefault(page = 0, size = 5, sort = "id", direction = Direction.ASC) Pageable pageable) {
 		return ResponseEntity.ok(petServico.buscarListaDePets(pageable));
 	}
 
 	@GetMapping("/buscar-lista-completa")
-	public ResponseEntity<List<Pet>> buscarTodosOsPetsDoBanco() {
+	public ResponseEntity<List<PetDTO>> buscarTodosOsPetsDoBanco() {
 		return ResponseEntity.status(HttpStatus.OK).body(petServico.buscarTodosPetsDoBanco());
 	}
 
@@ -58,7 +58,7 @@ public class PetControlador {
 	}
 
 	@GetMapping("/buscar-pet-por-id/{id}")
-	public ResponseEntity<Pet> buscarPetPorId(@PathVariable Integer id) {
+	public ResponseEntity<PetDTO> buscarPetPorId(@PathVariable Integer id) {
 		return ResponseEntity.status(HttpStatus.OK).body(petServico.buscarPetPorId(id));
 	}
 }
