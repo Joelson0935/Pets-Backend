@@ -4,6 +4,6 @@ RUN mkdir /application
 
 WORKDIR /application
 
-COPY target/*.jar /application/pet.jar
+COPY target/Pet-0.0.1.jar /application/pet.jar
 
 CMD [ "java", "-jar", "/application/pet.jar" ]
