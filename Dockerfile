@@ -1,5 +1,9 @@
 FROM eclipse-temurin:17-jdk-alpine
 
-ADD target/Pet-*.jar Pet.jar
+RUN mkdir /application
 
-ENTRYPOINT [ "java", "-jar", "/Pet.jar" ]
+WORKDIR /application
+
+COPY target/*.jar /application/pet.jar
+
+CMD [ "java", "-jar", "/application/pet.jar" ]
