@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class PetApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void main() {
+		PetApplication.main(new String[] {});
 	}
 
 }
