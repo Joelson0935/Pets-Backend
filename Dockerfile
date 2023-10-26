@@ -8,7 +8,7 @@ ADD . /application
 
 EXPOSE 8080
 
-RUN commandan package
+RUN  mvn clean package
 
 COPY target/*.jar /application/pet.jar
 
