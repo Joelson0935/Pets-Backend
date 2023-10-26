@@ -4,9 +4,7 @@ RUN mkdir /application
 
 WORKDIR /application
 
-ADD . /application
-
-COPY target/*.jar /application/pet.jar
+ADD . /application/pet.jar
 
 EXPOSE 8080
 
