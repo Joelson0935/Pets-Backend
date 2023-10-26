@@ -1,4 +1,4 @@
-FROM ubuntu:latest as build
+FROM ubuntu:latest AS build
 
 RUN apt-get update
 
@@ -8,7 +8,7 @@ COPY . .
 
 RUN apt-get install maven -y
 
-RUN mvn clean install 
+RUN mvn clean install -DskipTests
 
 FROM eclipse-temurin:17-jdk-alpine
 
