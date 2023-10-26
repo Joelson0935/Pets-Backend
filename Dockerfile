@@ -1,13 +1,7 @@
 FROM eclipse-temurin:17-jdk-alpine
 
-RUN mkdir /application
+COPY target/*.jar /app/pet.jar
 
-WORKDIR /application
+WORKDIR /app
 
-ADD . /application
-
-EXPOSE 8080
-
-COPY target/*.jar /application/pet.jar 
-
-CMD [ "java", "-jar", "/application/pet.jar" ]
+CMD ["java", "-jar", "pet.jar"]
