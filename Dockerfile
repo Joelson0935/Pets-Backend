@@ -1,9 +1,20 @@
+FROM ubuntu:latest as build
+
+RUN apt-get update
+
+RUN apt-get install eclipse-temurin:17-jdk-alpine
+
+COPY . .
+
+RUN apt-get install maven -y
+
+RUN mvn clean install 
+
 FROM eclipse-temurin:17-jdk-alpine
 
-RUN mkdir /app
+EXPOSE 8080
 
-WORKDIR /app
+COPY --from=build /target/Pet-0.0.1.jar pet.jar
 
-COPY target/Pet-0.0.1.jar /app/Pet-0.0.1.jar
+ENTRYPOINT [ "java", "-jar", "pet.jar" ]
 
-CMD ["java", "-jar", "/app/Pet-0.0.1.jar"]
