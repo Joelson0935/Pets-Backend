@@ -8,8 +8,6 @@ ADD . /application
 
 EXPOSE 8080
 
-RUN  mvn clean package
-
-COPY target/*.jar /application/pet.jar
+COPY target/*.jar /application/pet.jar 
 
 CMD [ "java", "-jar", "/application/pet.jar" ]
