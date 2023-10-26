@@ -1,7 +1,9 @@
 FROM eclipse-temurin:17-jdk-alpine
 
-COPY target/*.jar /app/pet.jar
+RUN mkdir /app
 
 WORKDIR /app
 
-CMD ["java", "-jar", "pet.jar"]
+COPY target/*.jar /app/pet.jar
+
+CMD ["java", "-jar", "/app/pet.jar"]
