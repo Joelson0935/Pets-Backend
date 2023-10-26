@@ -6,8 +6,6 @@ WORKDIR /application
 
 ADD . /application
 
-RUN mvn clean package
-
 COPY target/*.jar /application/pet.jar
 
 EXPOSE 8080
