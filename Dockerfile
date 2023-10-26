@@ -4,8 +4,12 @@ RUN mkdir /application
 
 WORKDIR /application
 
-ADD . /application/pet.jar
+ADD . /application
 
 EXPOSE 8080
+
+RUN commandan package
+
+COPY target/*.jar /application/pet.jar
 
 CMD [ "java", "-jar", "/application/pet.jar" ]
