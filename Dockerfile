@@ -4,6 +4,12 @@ RUN mkdir /application
 
 WORKDIR /application
 
-COPY target/Pet-0.0.1.jar /application/pet.jar
+ADD . /application
+
+RUN mvn clean package
+
+COPY target/*.jar /application/pet.jar
+
+EXPOSE 8080
 
 CMD [ "java", "-jar", "/application/pet.jar" ]
