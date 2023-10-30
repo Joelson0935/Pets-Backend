@@ -1,20 +1,8 @@
-FROM ubuntu:latest AS build
-
-RUN apt-get update
-
-RUN apt-get install eclipse-temurin:17-jdk-alpine
-
+FROM maven:3.8.5-openjdk-17 AS build
 COPY . .
-
-RUN apt-get install maven -y
-
-RUN mvn clean install -DskipTests
+RUN mvn clean pacakage
 
 FROM eclipse-temurin:17-jdk-alpine
-
+COPY --from=build /target/Pet-0.0.1.jar Pet-0.0.1.jar
 EXPOSE 8080
-
-COPY --from=build /target/Pet-0.0.1.jar pet.jar
-
-ENTRYPOINT [ "java", "-jar", "pet.jar" ]
-
+ENTRYPOINT [ "java", "-jar","Pet-0.0.1.jar" ]
